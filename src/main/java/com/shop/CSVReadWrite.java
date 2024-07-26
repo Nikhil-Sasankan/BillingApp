@@ -20,12 +20,12 @@ public class CSVReadWrite {
     static String[] HEADERS = { "name", "quantity", "price", "description" }; 
     static String[] HEADERS2 = { "","name", "quantity", "price", "total price"};
     public static final String csvtiemspath = "C:/BILLERDATA/";
-    public static String iemsname = csvtiemspath+"items.csv"; 
+    public static String itemsname = csvtiemspath+"items.csv"; 
 
     public List<InventoryItem> getItemDetails() {
         List<InventoryItem> itemlists = new ArrayList<>();
         // CSVParser parser;
-        try (CSVReader reader = new CSVReader(new FileReader(csvtiemspath))) {
+        try (CSVReader reader = new CSVReader(new FileReader(itemsname))) {
             String[] nextLine;
             boolean skipfirst = true;
             while ((nextLine = reader.readNext()) != null) {
@@ -44,7 +44,7 @@ public class CSVReadWrite {
     }
 
     public void writetoCSV(List<InventoryItem> ls) throws IOException { 
-        try (CSVWriter writer = new CSVWriter(new FileWriter(csvtiemspath))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(itemsname))) {
             writer.writeNext(HEADERS);
             for (InventoryItem inv : ls) {
                 String[] data = { inv.getName(),inv.getQuantity()+"" , inv.getPrice()+"", inv.getDescription() };
