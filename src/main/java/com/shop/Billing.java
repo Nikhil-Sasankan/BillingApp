@@ -34,6 +34,12 @@ public class Billing {
     private TextField quantityField;
     @FXML
     private TextField priceField;  
+
+    @FXML
+    private TextField personnameField;
+    @FXML
+    private TextField mobileField;
+
      @FXML
     private ComboBox<String> itemComboBox;
     @FXML
@@ -144,6 +150,20 @@ public class Billing {
         tableView.getItems().remove(item);
         billList.remove(item); 
         finalTotal.setText(" TOTAL : \t Rs "+countTotal());
+    }
+
+    @FXML
+    private void createBillItem(){
+        String personname = personnameField.getText()+"";
+        String mobileno = mobileField.getText()+"";
+        BillingItem blitem = new BillingItem(personname, mobileno, mobileno, billList);
+        CSVReadWrite csrw = new CSVReadWrite();
+        try {
+            csrw.writeBilltoCSV(blitem);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        billList.clear();
     }
 
     public static double countTotal(){

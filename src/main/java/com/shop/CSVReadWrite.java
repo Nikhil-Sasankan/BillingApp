@@ -1,17 +1,26 @@
 package com.shop;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException; 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List; 
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter; 
 
 public class CSVReadWrite {
-    static String[] HEADERS = { "name", "quantity", "price", "description" };
-    public static String csvtiemspath = "/items.csv";
+    static String[] HEADERS = { "name", "quantity", "price", "description" }; 
+    static String[] HEADERS2 = { "","name", "quantity", "price", "total price"};
+    public static final String csvtiemspath = "C:/BILLERDATA/";
+    public static String iemsname = csvtiemspath+"items.csv"; 
 
     public List<InventoryItem> getItemDetails() {
         List<InventoryItem> itemlists = new ArrayList<>();
@@ -41,6 +50,37 @@ public class CSVReadWrite {
                 String[] data = { inv.getName(),inv.getQuantity()+"" , inv.getPrice()+"", inv.getDescription() };
                 writer.writeNext(data);   
             }  
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }
+
+    public void writeBilltoCSV(BillingItem bl) throws IOException { 
+        // Create a new file based on Date
+        LocalDateTime now = LocalDateTime.now();
+        // Define a formatter for the date and time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm a dd-MM-yyyy");
+        // Format the current date and time as a string
+        String formattedDateTime = now.format(formatter);
+
+
+        File directory = new File(csvtiemspath+formattedDateTime);
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter(directory+"/"+bl.getName()+"_"+formattedDateTime))) {
+            writer.writeNext(new String[] {"FRIENDS BAKERY"});
+            writer.writeNext(new String[] {"Name : ",bl.getName()});
+            writer.writeNext(new String[] {"Mob  : ",bl.getMobno()});
+            writer.writeNext(new String[] {"Time : ",formattedDateTime});
+            writer.writeNext(new String[] {"","ITEMS "});
+            writer.writeNext(HEADERS2);
+            for (InventoryItem inv : bl.getItemsbought()) {
+                String[] data = {"", inv.getName(),inv.getQuantity()+"" , inv.getPrice()+"", inv.getItemtotal()+"" };
+                writer.writeNext(data);   
+            }  
+            writer.writeNext(new String[] {"TOTAL PRICE",bl.getTotal()+""});
         } catch (IOException e) {
             e.printStackTrace();
         } 
