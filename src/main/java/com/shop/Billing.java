@@ -156,7 +156,7 @@ public class Billing {
     private void createBillItem(){
         String personname = personnameField.getText()+"";
         String mobileno = mobileField.getText()+"";
-        BillingItem blitem = new BillingItem(personname, mobileno, mobileno, billList);
+        BillingItem blitem = new BillingItem(personname, mobileno, countTotal()+"", billList);
         CSVReadWrite csrw = new CSVReadWrite();
         try {
             csrw.writeBilltoCSV(blitem);

@@ -60,27 +60,34 @@ public class CSVReadWrite {
         LocalDateTime now = LocalDateTime.now();
         // Define a formatter for the date and time
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm a dd-MM-yyyy");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("HH_mm_dd-MM-yyyy");
         // Format the current date and time as a string
         String formattedDateTime = now.format(formatter);
+        String formattedDateTimeDate = now.format(formatterDate);
+        String formattedDateTimeDateTime = now.format(formatterDateTime);
 
 
-        File directory = new File(csvtiemspath+formattedDateTime);
+        File directory = new File(csvtiemspath+formattedDateTimeDate);
         if(!directory.exists()){
             directory.mkdir();
         }
 
-        try (CSVWriter writer = new CSVWriter(new FileWriter(directory+"/"+bl.getName()+"_"+formattedDateTime))) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(directory+"/"+bl.getName()+"_"+formattedDateTimeDateTime+".csv"))) {
             writer.writeNext(new String[] {"FRIENDS BAKERY"});
+            writer.writeNext(new String[] {"",""});
             writer.writeNext(new String[] {"Name : ",bl.getName()});
             writer.writeNext(new String[] {"Mob  : ",bl.getMobno()});
             writer.writeNext(new String[] {"Time : ",formattedDateTime});
-            writer.writeNext(new String[] {"","ITEMS "});
+            writer.writeNext(new String[] {"",""});
+            writer.writeNext(new String[] {"ITEMS :"});
             writer.writeNext(HEADERS2);
             for (InventoryItem inv : bl.getItemsbought()) {
                 String[] data = {"", inv.getName(),inv.getQuantity()+"" , inv.getPrice()+"", inv.getItemtotal()+"" };
                 writer.writeNext(data);   
             }  
-            writer.writeNext(new String[] {"TOTAL PRICE",bl.getTotal()+""});
+            writer.writeNext(new String[] {"",""});
+            writer.writeNext(new String[] {"","","TOTAL PRICE","",bl.getTotal()+""});
         } catch (IOException e) {
             e.printStackTrace();
         } 
