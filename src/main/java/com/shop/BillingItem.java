@@ -1,20 +1,17 @@
 package com.shop;
-
-import java.util.Date;
+ 
 import java.util.List;
 
 public class BillingItem {
     private String name ;
     private String mobno ;
-    private String total ;
-    private Date shoppingtime ;
+    private String total ; 
     private List<InventoryItem> itemsbought; 
     
-    public BillingItem(String name, String mobno, String total, Date shoppingtime, List<InventoryItem> itemsbought) {
+    public BillingItem(String name, String mobno, String total, List<InventoryItem> itemsbought) {
         this.name = name;
         this.mobno = mobno;
-        this.total = total;
-        this.shoppingtime = shoppingtime;
+        this.total = total; 
         this.itemsbought = itemsbought;
     }
     public String getName() {
@@ -34,13 +31,7 @@ public class BillingItem {
     }
     public void setTotal(String total) {
         this.total = total;
-    }
-    public Date getShoppingtime() {
-        return shoppingtime;
-    }
-    public void setShoppingtime(Date shoppingtime) {
-        this.shoppingtime = shoppingtime;
-    }
+    } 
     public List<InventoryItem> getItemsbought() {
         return itemsbought;
     }

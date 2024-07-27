@@ -8,11 +8,11 @@
                 <Font size="40.0"></Font>
             </font>
         </Label>
-        <HBox spacing="30" alignment="CENTER">
-            <Button prefWidth="200" prefHeight="200" fx:id="billerButton" text="Billing"
-            onAction="#switchToBilling" stylesheets="@styles.css" styleClass="billing-button" />
+        <HBox spacing="30" alignment="CENTER"> 
             <Button prefWidth="200" prefHeight="200" fx:id="primaryButton" text="View / Edit Inventory items"
-            onAction="#switchToSecondary" stylesheets="@styles.css" styleClass="view-button" />        
+            onAction="#switchToSecondary" stylesheets="@styles.css" styleClass="view-button" />      
+            <Button prefWidth="200" prefHeight="200" fx:id="billerButton" text="Billing"
+            onAction="#switchToBilling" stylesheets="@styles.css" styleClass="billing-button" />  
         </HBox>
     </children>
     <padding>

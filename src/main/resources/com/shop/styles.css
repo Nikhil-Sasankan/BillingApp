@@ -24,3 +24,23 @@
 .large-text {
     -fx-font-size: 24;
 }
+.create-button {
+    -fx-background-color: #055810;
+    -fx-font-size: 25;
+    -fx-text-fill:  #f8f8f8;
+    -fx-text-alignment: center; /* Center text horizontally */
+    -fx-alignment: center; 
+}
+.mybox-border{
+    -fx-margin: 50px;
+    -fx-border-color: #02111b; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 1px; /* Border radius (for rounded corners) */
+    -fx-padding: 30px; /* Padding inside the border */
+}
+.mybox-border2{ 
+    -fx-border-color: #02111b; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-border-radius: 1px; /* Border radius (for rounded corners) */
+    -fx-padding:  10px; /* Padding inside the border */
+}

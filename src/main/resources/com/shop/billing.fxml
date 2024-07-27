@@ -28,51 +28,62 @@
         <Insets bottom="20.0" left="5.0" right="5.0" top="20.0" />
     </padding>
     <HBox alignment="CENTER" spacing="40">
-        <VBox alignment="CENTER_RIGHT">
-        <TableView fx:id="tableView" prefWidth="400">
-            <columns>
-                <TableColumn prefWidth="120" text="Name">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="name" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="50" text="Qty">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="quantity" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="90" text="Price">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="price" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="90" text="Total">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="itemtotal" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="deleteColumn" prefWidth="40" text=" "/>
-            </columns>
-        </TableView>
-        <Label fx:id="finalTotal" text=" TOTAL :  Rs ₹  ">
-            <font>
-                <Font size="20.0"></Font>
-            </font>
-        </Label>
+        <VBox fx:id="printvboxSection" alignment="CENTER" spacing="10" stylesheets="@styles.css" styleClass="mybox-border2"> 
+            <HBox alignment="CENTER_LEFT"><Label text="Name       :   "> <font> <Font size="13.0"></Font> </font></Label>
+                <TextField fx:id="personnameField" promptText="" /></HBox> 
+            <HBox alignment="CENTER_LEFT"><Label text="Mob No.  :   "> <font> <Font size="13.0"></Font> </font></Label>
+                <TextField fx:id="mobileField" promptText="" /></HBox>
+            <Label fx:id="timeEdit" text=""/>
+            <TableView fx:id="tableView" prefWidth="400">
+                <columns>
+                    <TableColumn prefWidth="120" text="Item Name">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="name" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="50" text="Qty">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="quantity" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="90" text="Price">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="price" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="90" text="Total">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="itemtotal" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="deleteColumn" prefWidth="40" text=" " />
+                </columns>
+            </TableView>
+            <Label fx:id="finalTotal" text=" TOTAL :  Rs ₹  ">
+                <font>
+                    <Font size="20.0"></Font>
+                </font>
+            </Label>
         </VBox>
-        <VBox alignment="TOP_CENTER" spacing="10"> 
+        <VBox alignment="TOP_CENTER" spacing="10"  stylesheets="@styles.css" styleClass="mybox-border">
+            <Label text="Add Items : "><font><Font size="13.0"></Font></font></Label>
             <HBox spacing="10">
-                <TextField fx:id="nameField" promptText="Name" />
-                <TextField fx:id="quantityField" promptText="Quantity" />
+                <TextField fx:id="nameField" promptText="Item Name" />
+                <TextField fx:id="quantityField" promptText="Qty" />
                 <TextField fx:id="priceField" promptText="Price" />
-                <Button fx:id="addbutton" text="Add Item" onAction="#addBillItem" stylesheets="@styles.css"
+                <Button fx:id="addbutton" text="Add" onAction="#addBillItem"
+                    stylesheets="@styles.css"
                     styleClass="add-button"></Button>
             </HBox>
-            <HBox alignment="CENTER" spacing="10">
-                <Label text="Select item"><font><Font size="13.0"></Font></font></Label>
+            <HBox alignment="CENTER_LEFT" spacing="10"> 
                 <ComboBox fx:id="itemComboBox" promptText="Select Item" editable="true" />
             </HBox>
-        </VBox>
-        
+            <VBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS" > 
+                <Button fx:id="createbutton" text="Create Bill" onAction="#createBillItem"
+                    stylesheets="@styles.css"
+                    styleClass="create-button"></Button>
+            </VBox>
+
+        </VBox> 
     </HBox>
 </VBox>

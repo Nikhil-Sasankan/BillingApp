@@ -44,9 +44,17 @@ public class InventoryEdit {
     @FXML
     private void addInventoryItem() {
         String name = nameField.getText();
-        int quantity = Integer.parseInt(quantityField.getText());
-        double price = Double.parseDouble(priceField.getText());
+        if(name.trim().equals(""))return;
+        int quantity = 1;
+        try {
+            quantity = Integer.parseInt(quantityField.getText());
+        } catch (Exception e) {}
+        double price = 0.0;
+        try {
+            price =Double.parseDouble(priceField.getText()) ;
+        } catch (Exception e) {} 
         String description = descriptionField.getText(); // Add new items to list
+
         InventoryItem newItem = new InventoryItem(name, quantity, price, description);
         inventoryService.addInventoryItem(newItem); // once added refresh
         List<InventoryItem> inv = inventoryService.getInventory();
