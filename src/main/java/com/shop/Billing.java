@@ -170,7 +170,7 @@ public class Billing {
         itemComboBox.getEditor().clear();
         // Update the table view 
         tableView.setItems(FXCollections.observableArrayList(billList)); 
-        finalTotal.setText(" TOTAL : \t  Rs "+countTotal()); 
+        finalTotal.setText(" TOTAL : \t  Rs. "+countTotal()); 
         itemComboBox.requestFocus();
     }
  
@@ -178,7 +178,7 @@ public class Billing {
     private void handleDeleteAction(InventoryItem item ) { 
         tableView.getItems().remove(item);
         billList.remove(item); 
-        finalTotal.setText(" TOTAL : \t Rs "+countTotal());
+        finalTotal.setText(" TOTAL : \t Rs. "+countTotal());
     }
 
     @FXML
@@ -194,6 +194,7 @@ public class Billing {
         }
         confirmPrint();
         billList.clear();
+        tableView.setItems(FXCollections.observableArrayList(billList));
     }
 
     private void confirmPrint(){
