@@ -23,6 +23,10 @@ public class CSVReadWrite {
     public static String itemsname = csvtiemspath+"items.csv"; 
 
     public List<InventoryItem> getItemDetails() {
+        File directory = new File(csvtiemspath);
+        if(!directory.exists()){
+            directory.mkdir();
+        }
         List<InventoryItem> itemlists = new ArrayList<>();
         // CSVParser parser;
         try (CSVReader reader = new CSVReader(new FileReader(itemsname))) {

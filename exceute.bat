@@ -1,1 +1,0 @@
-java -jar shop-1-jar-with-dependencies.jar

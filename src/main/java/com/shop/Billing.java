@@ -1,22 +1,38 @@
 package com.shop;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField; 
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 public class Billing {
@@ -49,6 +65,12 @@ public class Billing {
     private TableColumn<InventoryItem, Void> deleteColumn;
     @FXML
     private Label finalTotal;
+
+    @FXML
+    private VBox printvboxSection ;
+
+    @FXML
+    private Label timeEdit;
 
     private static InventoryService inventoryService;
     private static List<InventoryItem> billList;
@@ -131,8 +153,15 @@ public class Billing {
     private void addBillItem() {
         // get the new bill item added bhy the user
         String name = nameField.getText();
-        int quantity = Integer.parseInt(quantityField.getText());
-        double price = Double.parseDouble(priceField.getText());  
+        if(name==null || name.trim().equals("")) return ;
+        int quantity ;
+        try{
+            quantity= Integer.parseInt(quantityField.getText());
+        }catch(Exception e){quantity = 1 ;}
+        double price = 0.0;
+        try{
+            price=  Double.parseDouble(priceField.getText());  
+        }catch(Exception e){return;} 
         double curtotal = quantity*price ;
         
         // Adding to our total items
@@ -163,7 +192,55 @@ public class Billing {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        confirmPrint();
         billList.clear();
+    }
+
+    private void confirmPrint(){
+        ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
+        ButtonType noButton = new ButtonType("No", ButtonData.NO);
+        Alert alert = new Alert(AlertType.CONFIRMATION, "", yesButton, noButton);
+        alert.setTitle("Confirm");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you want to print the bill?"); 
+        alert.getDialogPane().setPrefHeight(50);
+        alert.getDialogPane().setPrefWidth(100);
+
+        // Optionally, set custom styles
+        alert.getDialogPane().setStyle(
+                "-fx-font-family: 'Arial';" +
+                "-fx-font-size: 12px;" +
+                "-fx-background-color: #f4f4f4;"
+        );
+
+        // Set the stage style
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.initStyle(StageStyle.UTILITY);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            handlePrintSection();
+        }
+    }
+    private void handlePrintSection() { 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a dd-MM-yyyy");
+        String formattedDateTime = now.format(formatter);
+        timeEdit.setText(formattedDateTime);
+        // Capture snapshot 
+        WritableImage snapshot = printvboxSection.snapshot(new SnapshotParameters(), null); 
+        // Convert to ImageView for printing
+        ImageView imageView = new ImageView(snapshot); 
+        // Print the ImageView
+        Printer printer = Printer.getDefaultPrinter();
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+
+        if (job != null && job.showPrintDialog(printvboxSection.getScene().getWindow())) {
+            boolean success = job.printPage(imageView);
+            if (success) {
+                job.endJob();
+            }
+        }
+        throw new UnsupportedOperationException("Unimplemented method 'handlePrintSection'");
     }
 
     public static double countTotal(){

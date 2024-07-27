@@ -10,7 +10,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <app.name>shop</app.name>
-
     </properties>
     <dependencies>
         <dependency>
@@ -31,6 +30,7 @@
 
     </dependencies>
     <build>
+      <finalName>billerApp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -60,7 +60,7 @@
                   </archive>
                   <descriptorRefs>
                     <descriptorRef>jar-with-dependencies</descriptorRef>
-                  </descriptorRefs>
+                  </descriptorRefs> 
                 </configuration>
               </plugin> 
             <plugin>
