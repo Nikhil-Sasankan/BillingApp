@@ -14,7 +14,7 @@ public class App extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 1100, 650); 
+        scene = new Scene(loadFXML("primary"), 1100, 680); 
         stage.setScene(scene);
         stage.setTitle("Friend's Biller App");
         Image icon = new Image(getClass().getResourceAsStream("/extras/bill.png"));
